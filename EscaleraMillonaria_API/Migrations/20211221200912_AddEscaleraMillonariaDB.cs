@@ -65,6 +65,7 @@ namespace EscaleraMillonaria_API.Migrations
                     OptionTwo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OptionThree = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OptionFour = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Answer = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CategoryIdCategory = table.Column<int>(type: "int", nullable: true),
                     PlayerIdPlayer = table.Column<int>(type: "int", nullable: true)
                 },

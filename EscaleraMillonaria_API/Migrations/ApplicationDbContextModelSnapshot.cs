@@ -85,6 +85,10 @@ namespace EscaleraMillonaria_API.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<string>("Answer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("CategoryIdCategory")
                         .HasColumnType("int");
 

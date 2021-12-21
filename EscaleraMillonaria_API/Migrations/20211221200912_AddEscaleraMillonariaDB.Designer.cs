@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EscaleraMillonaria_API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211221151240_AddEscaleraMillonariaDB")]
+    [Migration("20211221200912_AddEscaleraMillonariaDB")]
     partial class AddEscaleraMillonariaDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -86,6 +86,10 @@ namespace EscaleraMillonaria_API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
+
+                    b.Property<string>("Answer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("CategoryIdCategory")
                         .HasColumnType("int");

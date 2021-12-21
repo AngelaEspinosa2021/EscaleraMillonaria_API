@@ -26,6 +26,9 @@ namespace EscaleraMillonaria_API.Models
         [Required]
         public string OptionFour { get; set; }
 
+        [Required]
+        public string Answer { get; set; }
+
 
     }
 }
