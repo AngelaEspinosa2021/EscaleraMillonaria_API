@@ -9,8 +9,10 @@ namespace EscaleraMillonaria_API.Models
     {
         public int IdCategory { get; set; }
 
-        public string CategoryName { get; set }
+        public string CategoryName { get; set; }
 
         public List<Question> Questions { get; set; }
+
+        public List<Award> Awards { get; set; }
     }
 }

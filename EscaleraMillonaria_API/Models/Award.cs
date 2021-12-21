@@ -7,5 +7,8 @@ namespace EscaleraMillonaria_API.Models
 {
     public class Award
     {
+        public int IdAward { get; set; }
+
+        public string AwardValue { get; set; }
     }
 }
