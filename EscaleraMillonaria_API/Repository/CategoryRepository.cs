@@ -32,8 +32,8 @@ namespace EscaleraMillonaria_API.Repository
             Category category = await _db.Categories.FindAsync(id);
 
             return _mapper.Map<CategoryDto>(category);
-        }
+        }      
 
-       
+
     }
 }

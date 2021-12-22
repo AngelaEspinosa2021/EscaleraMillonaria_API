@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace EscaleraMillonaria_API.Repository
 {
-    public interface ICategoryRepository
+    public interface IQuestionRepository
     {
-        Task<List<CategoryDto>> GetCategories();
-
-        Task<CategoryDto> GetCategoryById(int id);
-        
+        Task<List<QuestionDto>> GetQuestions();
     }
 }
