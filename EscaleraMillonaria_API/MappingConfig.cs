@@ -16,6 +16,8 @@ namespace EscaleraMillonaria_API
             {
                 config.CreateMap<CategoryDto, Category>();
                 config.CreateMap<Category, CategoryDto>();
+                config.CreateMap<QuestionDto, Question>();
+                config.CreateMap<Question, QuestionDto>();
             });
 
             return mappingConfig;

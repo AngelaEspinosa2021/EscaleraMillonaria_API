@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using EscaleraMillonaria_API.Data;
+using EscaleraMillonaria_API.Models;
 using EscaleraMillonaria_API.Models.Dto;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,19 +20,31 @@ namespace EscaleraMillonaria_API.Repository
             _db = db;
             _mapper = mapper;
         }
-        public Task<List<CategoryDto>> GetCategories()
+        public async Task<List<CategoryDto>> GetCategories()
         {
-            throw new NotImplementedException();
+            List<Category> list = await _db.Categories.ToListAsync();
+
+            return _mapper.Map<List<CategoryDto>>(list);
         }
 
-        public Task<CategoryDto> GetCustomerById(int id)
+        public async Task<CategoryDto> GetCustomerById(int id)
         {
-            throw new NotImplementedException();
+            Category category = await _db.Categories.FindAsync(id);
+
+            return _mapper.Map<CategoryDto>(category);
         }
 
-        public Task<List<CategoryDto>> Initialize()
+        public async Task<List<QuestionDto>> Initialize()
         {
-            throw new NotImplementedException();
+            List<Question> finalList = new List<Question>();
+
+            var listQuestions = _db.Questions.OrderBy(m => Guid.NewGuid()).Take(6);
+            if (listQuestions.Count() > 0)
+            {
+                finalList = listQuestions.ToList();
+            }
+
+            return _mapper.Map<List<QuestionDto>>(finalList);
         }
     }
 }
