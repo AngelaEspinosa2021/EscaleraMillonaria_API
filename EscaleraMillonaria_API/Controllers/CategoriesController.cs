@@ -29,27 +29,38 @@ namespace EscaleraMillonaria_API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
         {
-            return await _context.Categories.ToListAsync();
+            try
+            {
+                var list = await _categoryRepository.GetCategories();
+                _response.Result = list;
+                _response.DisplayMessage = "Lista de Categorias";
+            }
+            catch (Exception ex) 
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessage = new List<string> { ex.ToString() };
+            }
+
+            return Ok(_response);
+
         }
 
         // GET: api/Categories/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Category>> GetCategory(int id)
         {
-            var category = await _context.Categories.FindAsync(id);
-
+            var category = await _categoryRepository.GetCategoryById(id);
             if (category == null)
             {
-                return NotFound();
+                _response.IsSuccess = false;
+                _response.DisplayMessage = "La Categoria no Existe";
+                return NotFound(_response);
             }
+            _response.Result = category;
+            _response.DisplayMessage = "Información de la Categoria";
+            return Ok(category);
+        }       
 
-            return category;
-        }
         
-
-        private bool CategoryExists(int id)
-        {
-            return _context.Categories.Any(e => e.IdCategory == id);
-        }
     }
 }

@@ -4,7 +4,7 @@ using EscaleraMillonaria_API.Models;
 using EscaleraMillonaria_API.Models.Dto;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -27,7 +27,7 @@ namespace EscaleraMillonaria_API.Repository
             return _mapper.Map<List<CategoryDto>>(list);
         }
 
-        public async Task<CategoryDto> GetCustomerById(int id)
+        public async Task<CategoryDto> GetCategoryById(int id)
         {
             Category category = await _db.Categories.FindAsync(id);
 

@@ -10,7 +10,7 @@ namespace EscaleraMillonaria_API.Repository
     {
         Task<List<CategoryDto>> GetCategories();
 
-        Task<CategoryDto> GetCustomerById(int id);
+        Task<CategoryDto> GetCategoryById(int id);
 
         //Task<List<CategoryDto>> Initialize();
     }
