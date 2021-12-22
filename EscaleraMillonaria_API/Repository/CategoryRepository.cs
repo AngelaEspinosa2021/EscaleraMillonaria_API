@@ -1,4 +1,5 @@
-﻿using EscaleraMillonaria_API.Models.Dto;
+﻿using EscaleraMillonaria_API.Data;
+using EscaleraMillonaria_API.Models.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,12 @@ namespace EscaleraMillonaria_API.Repository
 {
     public class CategoryRepository : ICategoryRepository
     {
+        private readonly ApplicationDbContext _db;
+
+        public CategoryRepository(ApplicationDbContext db)
+        {
+            _db = db;
+        }
         public Task<List<CategoryDto>> GetCategories()
         {
             throw new NotImplementedException();
