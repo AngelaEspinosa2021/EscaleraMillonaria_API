@@ -41,7 +41,6 @@ namespace EscaleraMillonaria_API.Controllers
 
             return category;
         }
-
         
 
         private bool CategoryExists(int id)
