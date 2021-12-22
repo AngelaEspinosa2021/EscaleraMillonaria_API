@@ -20,5 +20,6 @@ namespace EscaleraMillonaria_API
 
             return mappingConfig;
         }
+
     }
 }
