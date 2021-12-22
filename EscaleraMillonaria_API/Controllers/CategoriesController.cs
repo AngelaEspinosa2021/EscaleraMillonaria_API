@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using EscaleraMillonaria_API.Data;
 using EscaleraMillonaria_API.Models;
 using EscaleraMillonaria_API.Repository;
+using EscaleraMillonaria_API.Models.Dto;
 
 namespace EscaleraMillonaria_API.Controllers
 {
@@ -16,10 +17,12 @@ namespace EscaleraMillonaria_API.Controllers
     public class CategoriesController : ControllerBase
     {
         private readonly ICategoryRepository _categoryRepository;
+        protected ResponseDto _response;
 
         public CategoriesController(ICategoryRepository categoryRepository)
         {
             _categoryRepository = categoryRepository;
+            _response = new ResponseDto();
         }
 
         // GET: api/Categories
