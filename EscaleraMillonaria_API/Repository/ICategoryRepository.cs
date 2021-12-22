@@ -12,6 +12,6 @@ namespace EscaleraMillonaria_API.Repository
 
         Task<CategoryDto> GetCustomerById(int id);
 
-        Task<List<CategoryDto>> Initialize();
+        //Task<List<CategoryDto>> Initialize();
     }
 }

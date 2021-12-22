@@ -34,17 +34,6 @@ namespace EscaleraMillonaria_API.Repository
             return _mapper.Map<CategoryDto>(category);
         }
 
-        public async Task<List<QuestionDto>> Initialize()
-        {
-            List<Question> finalList = new List<Question>();
-
-            var listQuestions = _db.Questions.OrderBy(m => Guid.NewGuid()).Take(6);
-            if (listQuestions.Count() > 0)
-            {
-                finalList = listQuestions.ToList();
-            }
-
-            return _mapper.Map<List<QuestionDto>>(finalList);
-        }
+       
     }
 }

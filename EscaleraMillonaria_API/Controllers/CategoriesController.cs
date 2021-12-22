@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EscaleraMillonaria_API.Data;
 using EscaleraMillonaria_API.Models;
+using EscaleraMillonaria_API.Repository;
 
 namespace EscaleraMillonaria_API.Controllers
 {
@@ -14,11 +15,11 @@ namespace EscaleraMillonaria_API.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ICategoryRepository _categoryRepository;
 
-        public CategoriesController(ApplicationDbContext context)
+        public CategoriesController(ICategoryRepository categoryRepository)
         {
-            _context = context;
+            _categoryRepository = categoryRepository;
         }
 
         // GET: api/Categories
