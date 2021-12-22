@@ -45,22 +45,41 @@ namespace EscaleraMillonaria_API.Controllers
 
         }
 
+        //// GET: api/Categories/5
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult<Category>> GetCategory(int id)
+        //{
+        //    var category = await _categoryRepository.GetCategoryById(id);
+        //    if (category == null)
+        //    {
+        //        _response.IsSuccess = false;
+        //        _response.DisplayMessage = "La Categoria no Existe";
+        //        return NotFound(_response);
+        //    }
+        //    _response.Result = category;
+        //    _response.DisplayMessage = "Información de la Categoria";
+        //    return Ok(category);
+        //}
+
         // GET: api/Categories/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Category>> GetCategory(int id)
+        public async Task<ActionResult<Category>> GetQuestionsByCategory(int id)
         {
-            var category = await _categoryRepository.GetCategoryById(id);
-            if (category == null)
+            try
+            {
+                var category = await _categoryRepository.GetQuestionsByCategory(id);
+                _response.Result = category;
+                _response.DisplayMessage = "Listado de Preguntas";
+            }
+            catch (Exception ex)
             {
                 _response.IsSuccess = false;
-                _response.DisplayMessage = "La Categoria no Existe";
-                return NotFound(_response);
+                _response.ErrorMessage = new List<string> { ex.ToString() };
             }
-            _response.Result = category;
-            _response.DisplayMessage = "Información de la Categoria";
-            return Ok(category);
-        }       
 
-        
+            return Ok(_response);
+        }
+
+
     }
 }

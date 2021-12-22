@@ -11,6 +11,8 @@ namespace EscaleraMillonaria_API.Repository
         Task<List<CategoryDto>> GetCategories();
 
         Task<CategoryDto> GetCategoryById(int id);
-        
+
+        Task<CategoryDto> GetQuestionsByCategory(int idCategory);
+
     }
 }

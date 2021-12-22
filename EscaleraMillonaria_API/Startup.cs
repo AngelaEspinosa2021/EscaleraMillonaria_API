@@ -38,6 +38,7 @@ namespace EscaleraMillonaria_API
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IQuestionRepository, QuestionRepository>();
 
             services.AddSwaggerGen(c =>
             {
