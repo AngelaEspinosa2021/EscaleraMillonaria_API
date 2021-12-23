@@ -21,25 +21,30 @@ namespace EscaleraMillonaria_API.Repository
             _mapper = mapper;
         }
 
-        public async Task<AwardDto> assignAward(int idCategory, int position)
+        public async Task<List<AwardDto>> assignAward(int idCategory, int position)
         {
             List<Award> allAwards = await _db.Awards.ToListAsync();
-            Award awardWon = new Award();
+            List<Award> awardWon = new List<Award>();
+            var listTemp = new List<Award>();
 
             foreach (var award in allAwards)
             {
-                int numPosition = Int32.Parse(award.QuestionPosition);
                 var temp = (from m in allAwards
-                            where m.IdCategory == idCategory && numPosition == position
-                            select m.AwardValue);
+                            where m.IdCategory == idCategory && m.QuestionPosition == position
+                            select m);
 
                 if(temp.Count() > 0)
                 {
-                    awardWon = (Award)temp;
+                    listTemp = temp.ToList();
                 }
             }
+            
+            foreach (var list in listTemp)
+            {
+                awardWon.Add(list);
+            }
 
-            return _mapper.Map<AwardDto>(awardWon);
+            return _mapper.Map<List<AwardDto>>(awardWon);
             
         }
 

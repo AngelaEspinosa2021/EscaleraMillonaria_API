@@ -10,6 +10,6 @@ namespace EscaleraMillonaria_API.Repository
     {
         Task<List<AwardDto>> GetAwards();
 
-        Task<AwardDto> assignAward(int idCategory, int position);
+        Task<List<AwardDto>> assignAward(int idCategory, int position);
     }
 }

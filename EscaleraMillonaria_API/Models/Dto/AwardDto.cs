@@ -11,5 +11,7 @@ namespace EscaleraMillonaria_API.Models.Dto
 
         public string AwardValue { get; set; }
 
+        public int QuestionPosition { get; set; }
+
     }
 }

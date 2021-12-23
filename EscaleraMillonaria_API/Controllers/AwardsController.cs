@@ -29,12 +29,38 @@ namespace EscaleraMillonaria_API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Award>>> GetAwards()
         {
-            return await _context.Awards.ToListAsync();
+            try
+            {
+                var list = await _awardRepository.GetAwards();
+                _response.Result = list;
+                _response.DisplayMessage = "Listado de Premios";
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessage = new List<string> { ex.ToString() };
+            }
+
+            return Ok(_response);
         }
 
-        private bool AwardExists(int id)
+        [HttpGet("{idCategory}/{position}")]
+
+        public async Task<ActionResult<IEnumerable<Award>>> assignAward(int idCategory, int position)
         {
-            return _context.Awards.Any(e => e.IdAward == id);
+            try
+            {
+                var list = await _awardRepository.assignAward(idCategory, position);
+                _response.Result = list;
+                return Ok(list);
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessage = new List<string> { ex.ToString() };
+            }
+
+            return Ok(_response);
         }
     }
 }
