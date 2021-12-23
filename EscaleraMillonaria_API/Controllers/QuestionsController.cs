@@ -27,28 +27,23 @@ namespace EscaleraMillonaria_API.Controllers
 
         // GET: api/Questions
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Question>>> GetQuestions()
+        public async Task<ActionResult<IEnumerable<Question>>> GetQuestionsByCategory(int idCategory)
         {
-            return await _context.Questions.ToListAsync();
-        }
-
-        // GET: api/Questions/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Question>> GetQuestion(int id)
-        {
-            var question = await _context.Questions.FindAsync(id);
-
-            if (question == null)
+            try
             {
-                return NotFound();
+                var list = await _questionRepository.GetQuestionsByCategory(idCategory);
+                _response.Result = list;
+                _response.DisplayMessage = "Listado de Preguntas";
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessage = new List<string> { ex.ToString() };
             }
 
-            return question;
-        }       
-
-        private bool QuestionExists(int id)
-        {
-            return _context.Questions.Any(e => e.IdQuestion == id);
+            return Ok(_response);
         }
+              
+        
     }
 }
