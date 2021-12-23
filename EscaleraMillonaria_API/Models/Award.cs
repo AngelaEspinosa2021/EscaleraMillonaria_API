@@ -15,6 +15,8 @@ namespace EscaleraMillonaria_API.Models
         [Required]
         public string AwardValue { get; set; }
 
+        public string QuestionPosition { get; set; }
+
         [ForeignKey("Category")]
         public int IdCategory { get; set; }
     }
