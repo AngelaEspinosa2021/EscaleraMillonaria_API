@@ -27,25 +27,24 @@ namespace EscaleraMillonaria_API.Repository
             List<Question> finalList = new List<Question>();
             var listTemp = new List<Question>();
 
-            foreach(var question in allQuestions)
+            foreach (var question in allQuestions)
             {
                 var temp = (from m in allQuestions
                             where m.IdCategory == idCategory
                             select m);
 
-                if(temp.Count() > 0)
+                if (temp.Count() > 0)
                 {
                     listTemp = temp.ToList();
                 }
             }
 
-            foreach(var list in listTemp)
+            foreach (var list in listTemp)
             {
                 finalList.Add(list);
             }
 
-
-            return _mapper.Map<List<QuestionDto>>(finalList);
+            return _mapper.Map<List<QuestionDto>>(finalList.OrderBy(arg => Guid.NewGuid()).Take(6));
         }
 
     }
