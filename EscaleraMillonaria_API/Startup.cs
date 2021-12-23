@@ -40,6 +40,7 @@ namespace EscaleraMillonaria_API
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IQuestionRepository, QuestionRepository>();
             services.AddScoped<IAwardRepository, AwardRepository>();
+            services.AddScoped<IPlayerRepository, PlayerRepository>();
 
             services.AddSwaggerGen(c =>
             {
