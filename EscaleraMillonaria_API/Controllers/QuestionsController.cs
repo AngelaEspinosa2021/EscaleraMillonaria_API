@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EscaleraMillonaria_API.Data;
 using EscaleraMillonaria_API.Models;
+using EscaleraMillonaria_API.Repository;
+using EscaleraMillonaria_API.Models.Dto;
 
 namespace EscaleraMillonaria_API.Controllers
 {
@@ -14,11 +16,13 @@ namespace EscaleraMillonaria_API.Controllers
     [ApiController]
     public class QuestionsController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IQuestionRepository _questionRepository;
+        protected ResponseDto _response;
 
-        public QuestionsController(ApplicationDbContext context)
+        public QuestionsController(IQuestionRepository questionRepository)
         {
-            _context = context;
+            _questionRepository = questionRepository;
+            _response = new ResponseDto();
         }
 
         // GET: api/Questions
