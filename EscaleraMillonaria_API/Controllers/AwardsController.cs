@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EscaleraMillonaria_API.Data;
 using EscaleraMillonaria_API.Models;
+using EscaleraMillonaria_API.Repository;
+using EscaleraMillonaria_API.Models.Dto;
 
 namespace EscaleraMillonaria_API.Controllers
 {
@@ -14,11 +16,13 @@ namespace EscaleraMillonaria_API.Controllers
     [ApiController]
     public class AwardsController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IAwardRepository _awardRepository;
+        protected ResponseDto _response;
 
-        public AwardsController(ApplicationDbContext context)
+        public AwardsController(IAwardRepository awardRepository)
         {
-            _context = context;
+            _awardRepository = awardRepository;
+            _response = new ResponseDto();
         }
 
         // GET: api/Awards
