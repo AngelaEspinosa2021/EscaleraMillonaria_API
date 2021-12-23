@@ -33,37 +33,37 @@ namespace EscaleraMillonaria_API.Repository
             Category category = await _db.Categories.FindAsync(id);
 
             return _mapper.Map<CategoryDto>(category);
-        }      
-
-        public async Task<CategoryDto> GetQuestionsByCategory(int idCategory)
-        {
-            Category category = new Category();
-            List<Question> listTemp = new List<Question>();
-            var list = new List<Question>();
-
-            //var temp = (from m in _db.Categories
-            //            join p in _db.Questions on m.IdCategory=p.
-            //            select m);
-
-            if(temp.Count() > 0)
-            {
-                list = temp.ToList();
-            }
-
-            
-            foreach(var question in list)
-            {
-                listTemp.Add(question);
-            }
-            
-            foreach(var question in listTemp)
-            {
-                category.Questions.Add(question);
-            }
-                        
-                 
-            return _mapper.Map<CategoryDto>(category);
         }
+
+        //public async Task<CategoryDto> GetQuestionsByCategory(int idCategory)
+        //{
+        //    Category category = new Category();
+        //    List<Question> listTemp = new List<Question>();
+        //    var list = new List<Question>();
+
+        //    var temp = (from m in _db.Categories
+        //                join p in _db.Questions on m.IdCategory = p.IDCATEGORY
+        //                select m);
+
+        //    if (temp.Count() > 0)
+        //    {
+        //        list = temp.ToList();
+        //    }
+
+
+        //    foreach (var question in list)
+        //    {
+        //        listTemp.Add(question);
+        //    }
+
+        //    foreach (var question in listTemp)
+        //    {
+        //        category.Questions.Add(question);
+        //    }
+
+
+        //    return _mapper.Map<CategoryDto>(category);
+        //}
 
     }
 }

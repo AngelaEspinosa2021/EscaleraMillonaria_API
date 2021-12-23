@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EscaleraMillonaria_API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211221200912_AddEscaleraMillonariaDB")]
-    partial class AddEscaleraMillonariaDB
+    [Migration("20211223030743_AddMillionaireStaircaseDB")]
+    partial class AddMillionaireStaircaseDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,12 +32,7 @@ namespace EscaleraMillonaria_API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CategoryIdCategory")
-                        .HasColumnType("int");
-
                     b.HasKey("IdAward");
-
-                    b.HasIndex("CategoryIdCategory");
 
                     b.ToTable("Awards");
                 });
@@ -91,7 +86,7 @@ namespace EscaleraMillonaria_API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CategoryIdCategory")
+                    b.Property<int>("IdCategory")
                         .HasColumnType("int");
 
                     b.Property<string>("OptionFour")
@@ -119,36 +114,16 @@ namespace EscaleraMillonaria_API.Migrations
 
                     b.HasKey("IdQuestion");
 
-                    b.HasIndex("CategoryIdCategory");
-
                     b.HasIndex("PlayerIdPlayer");
 
                     b.ToTable("Questions");
                 });
 
-            modelBuilder.Entity("EscaleraMillonaria_API.Models.Award", b =>
-                {
-                    b.HasOne("EscaleraMillonaria_API.Models.Category", null)
-                        .WithMany("Awards")
-                        .HasForeignKey("CategoryIdCategory");
-                });
-
             modelBuilder.Entity("EscaleraMillonaria_API.Models.Question", b =>
                 {
-                    b.HasOne("EscaleraMillonaria_API.Models.Category", null)
-                        .WithMany("Questions")
-                        .HasForeignKey("CategoryIdCategory");
-
                     b.HasOne("EscaleraMillonaria_API.Models.Player", null)
                         .WithMany("QuestionsAnsweredByPlayer")
                         .HasForeignKey("PlayerIdPlayer");
-                });
-
-            modelBuilder.Entity("EscaleraMillonaria_API.Models.Category", b =>
-                {
-                    b.Navigation("Awards");
-
-                    b.Navigation("Questions");
                 });
 
             modelBuilder.Entity("EscaleraMillonaria_API.Models.Player", b =>

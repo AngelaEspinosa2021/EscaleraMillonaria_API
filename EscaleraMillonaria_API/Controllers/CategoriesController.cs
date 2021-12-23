@@ -61,24 +61,24 @@ namespace EscaleraMillonaria_API.Controllers
         //    return Ok(category);
         //}
 
-        // GET: api/Categories/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Category>> GetQuestionsByCategory(int id)
-        {
-            try
-            {
-                var category = await _categoryRepository.GetQuestionsByCategory(id);
-                _response.Result = category;
-                _response.DisplayMessage = "Listado de Preguntas";
-            }
-            catch (Exception ex)
-            {
-                _response.IsSuccess = false;
-                _response.ErrorMessage = new List<string> { ex.ToString() };
-            }
+        //// GET: api/Categories/5
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult<Category>> GetQuestionsByCategory(int id)
+        //{
+        //    try
+        //    {
+        //        var category = await _categoryRepository.GetQuestionsByCategory(id);
+        //        _response.Result = category;
+        //        _response.DisplayMessage = "Listado de Preguntas";
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _response.IsSuccess = false;
+        //        _response.ErrorMessage = new List<string> { ex.ToString() };
+        //    }
 
-            return Ok(_response);
-        }
+        //    return Ok(_response);
+        //}
 
 
     }
