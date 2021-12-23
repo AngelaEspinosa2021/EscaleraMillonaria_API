@@ -29,86 +29,83 @@ namespace EscaleraMillonaria_API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Player>>> GetPlayers()
         {
-            return await _context.Players.ToListAsync();
+            try
+            {
+                var list = await _playerRepository.GetPlayers();
+                _response.Result = list;
+                _response.DisplayMessage = "Lista de Jugadores Inscritos";
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessage = new List<string> { ex.ToString() };
+            }
+            return Ok(_response);
         }
 
         // GET: api/Players/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Player>> GetPlayer(int id)
         {
-            var player = await _context.Players.FindAsync(id);
-
+            var player = await _playerRepository.GetPlayerById(id);
             if (player == null)
             {
-                return NotFound();
+                _response.IsSuccess = false;
+                _response.DisplayMessage = "Jugador no Existe";
+                return NotFound(_response);
             }
-
-            return player;
+            _response.Result = player;
+            _response.DisplayMessage = "Información del Jugador";
+            return Ok(player);
         }
 
         // PUT: api/Players/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPlayer(int id, Player player)
+        public async Task<IActionResult> PutPlayer(int id, PlayerDto playerDto)
         {
-            if (id != player.IdPlayer)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(player).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                PlayerDto model = await _playerRepository.CreateUpdatePlayer(playerDto);
+                _response.Result = model;
+                return Ok(_response);
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception ex)
             {
-                if (!PlayerExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                _response.IsSuccess = false;
+                _response.DisplayMessage = "Error al actualizar el registor";
+                _response.ErrorMessage = new List<string> { ex.ToString() };
+                return BadRequest(_response);
             }
-
-            return NoContent();
-        }
-
-        // POST: api/Players
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPost]
-        public async Task<ActionResult<Player>> PostPlayer(Player player)
-        {
-            _context.Players.Add(player);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetPlayer", new { id = player.IdPlayer }, player);
         }
 
         // DELETE: api/Players/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Player>> DeletePlayer(int id)
         {
-            var player = await _context.Players.FindAsync(id);
-            if (player == null)
+            try
             {
-                return NotFound();
+                bool isEliminated = await _playerRepository.DeletePlayer(id);
+                if(isEliminated)
+                {
+                    _response.Result = isEliminated;
+                    _response.DisplayMessage = "Jugador Eliminado con Exito.";
+                    return Ok(_response);
+                }
+                else
+                {
+                    _response.IsSuccess = false;
+                    _response.DisplayMessage = "Error al Eliminar Jugador.";
+                    return BadRequest(_response);
+                }
             }
-
-            _context.Players.Remove(player);
-            await _context.SaveChangesAsync();
-
-            return player;
-        }
-
-        private bool PlayerExists(int id)
-        {
-            return _context.Players.Any(e => e.IdPlayer == id);
-        }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessage = new List<string> { ex.ToString() };
+                return BadRequest(_response);
+            }
+        }        
     }
 }
