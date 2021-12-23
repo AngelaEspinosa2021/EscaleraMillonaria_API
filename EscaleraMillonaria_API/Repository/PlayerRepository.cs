@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using EscaleraMillonaria_API.Data;
+using EscaleraMillonaria_API.Models;
 using EscaleraMillonaria_API.Models.Dto;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,24 +20,53 @@ namespace EscaleraMillonaria_API.Repository
             _db = db;
             _mapper = mapper;
         }
-        public Task<PlayerDto> CreatePlayer(PlayerDto playerDto)
+        public async Task<PlayerDto> CreateUpdatePlayer(PlayerDto playerDto)
         {
-            throw new NotImplementedException();
+            Player player = _mapper.Map<PlayerDto, Player>(playerDto);
+            if(player.IdPlayer > 0)
+            {
+                _db.Players.Update(player);
+            }
+            else
+            {
+                await _db.Players.AddAsync(player);
+            }
+            await _db.SaveChangesAsync();
+            return _mapper.Map<Player, PlayerDto>(player);
         }
 
-        public Task<bool> DeletePlayer(int id)
+        public async Task<bool> DeletePlayer(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Player player = await _db.Players.FindAsync(id);
+                if(player == null)
+                {
+                    return false;
+                }
+                _db.Players.Remove(player);
+                await _db.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
-        public Task<PlayerDto> GetPlayerById(int id)
+        public async Task<PlayerDto> GetPlayerById(int id)
         {
-            throw new NotImplementedException();
+            Player player = await _db.Players.FindAsync(id);
+
+            return _mapper.Map<PlayerDto>(player);
         }
 
-        public Task<List<PlayerDto>> GetPlayers()
+        public async Task<List<PlayerDto>> GetPlayers()
         {
-            throw new NotImplementedException();
+            List<Player> list = await _db.Players.ToListAsync();
+
+            return _mapper.Map<List<PlayerDto>>(list);
         }
     }
 }

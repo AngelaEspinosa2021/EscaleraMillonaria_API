@@ -12,7 +12,7 @@ namespace EscaleraMillonaria_API.Repository
 
         Task<PlayerDto> GetPlayerById(int id);
 
-        Task<PlayerDto> CreatePlayer(PlayerDto playerDto);
+        Task<PlayerDto> CreateUpdatePlayer(PlayerDto playerDto);
 
         Task<bool> DeletePlayer(int id);
     }
