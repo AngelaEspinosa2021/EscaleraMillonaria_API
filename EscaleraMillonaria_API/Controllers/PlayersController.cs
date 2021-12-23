@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EscaleraMillonaria_API.Data;
 using EscaleraMillonaria_API.Models;
+using EscaleraMillonaria_API.Repository;
+using EscaleraMillonaria_API.Models.Dto;
 
 namespace EscaleraMillonaria_API.Controllers
 {
@@ -14,11 +16,13 @@ namespace EscaleraMillonaria_API.Controllers
     [ApiController]
     public class PlayersController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IPlayerRepository _playerRepository;
+        protected ResponseDto _response;
 
-        public PlayersController(ApplicationDbContext context)
+        public PlayersController(IPlayerRepository playerRepository)
         {
-            _context = context;
+            _playerRepository = playerRepository;
+            _response = new ResponseDto();
         }
 
         // GET: api/Players
