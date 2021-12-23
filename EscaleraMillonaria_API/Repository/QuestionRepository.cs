@@ -2,6 +2,7 @@
 using EscaleraMillonaria_API.Data;
 using EscaleraMillonaria_API.Models;
 using EscaleraMillonaria_API.Models.Dto;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,33 +21,32 @@ namespace EscaleraMillonaria_API.Repository
             _mapper = mapper;
         }
 
-        public Task<List<QuestionDto>> GetQuestions()
+        public async Task<List<QuestionDto>> GetQuestionsByCategory(int idCategory)
         {
-            throw new NotImplementedException();
+            List<Question> allQuestions = await _db.Questions.ToListAsync();
+            List<Question> finalList = new List<Question>();
+            var listTemp = new List<Question>();
+
+            foreach(var question in allQuestions)
+            {
+                var temp = (from m in allQuestions
+                            where m.IdCategory == idCategory
+                            select m);
+
+                if(temp.Count() > 0)
+                {
+                    listTemp = temp.ToList();
+                }
+            }
+
+            foreach(var list in listTemp)
+            {
+                finalList.Add(list);
+            }
+
+
+            return _mapper.Map<List<QuestionDto>>(finalList);
         }
 
-        //private List<Question> getQuestionsByCategory(int idCategory)
-        //{
-        //    var listQuestions = _db.Questions.Include(p => p.)
-        //}
-
-        //public Task<List<QuestionDto>> GetQuestions()
-        //{
-        //    List<Question> questionsCategoryOne = new List<Question>();
-        //    List<Question> questionsCategoryTwo = new List<Question>();
-        //    List<Question> questionsCategoryThree = new List<Question>();
-        //    List<Question> questionsCategoryFour = new List<Question>();
-        //    List<Question> questionsCategoryFive = new List<Question>();
-        //    var listTemp = new List<Question>();
-
-        //    var listCategoryOne = from m in _db.Questions
-        //                          where m.IdQuestion > 9 && m.IdQuestion < 21
-        //                          select m;
-
-
-
-        //    return _mapper.Map<List<QuestionDto>>(questionsCategoryOne);
-
-        //}
     }
 }

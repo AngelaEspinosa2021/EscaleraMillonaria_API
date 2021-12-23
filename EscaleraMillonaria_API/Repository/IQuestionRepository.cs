@@ -8,6 +8,6 @@ namespace EscaleraMillonaria_API.Repository
 {
     public interface IQuestionRepository
     {
-        Task<List<QuestionDto>> GetQuestions();
+        Task<List<QuestionDto>> GetQuestionsByCategory(int idCategory);
     }
 }
