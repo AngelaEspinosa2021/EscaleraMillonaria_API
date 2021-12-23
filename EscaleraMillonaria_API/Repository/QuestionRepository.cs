@@ -47,5 +47,31 @@ namespace EscaleraMillonaria_API.Repository
             return _mapper.Map<List<QuestionDto>>(finalList.OrderBy(arg => Guid.NewGuid()).Take(6));
         }
 
+        public async Task<bool> validateQuestions(string answer, int idQuestion)
+        {
+            try
+            {
+                var question = await _db.Questions.FindAsync(idQuestion);
+                var answerInt = Convert.ToInt32(answer);
+                var answerQuestion = Convert.ToInt32(question.Answer);
+                if (question == null)
+                {
+                    return false;
+                }
+                
+                if(answerInt == answerQuestion)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
+
     }
 }
