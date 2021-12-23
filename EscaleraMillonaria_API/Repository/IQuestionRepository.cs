@@ -9,5 +9,7 @@ namespace EscaleraMillonaria_API.Repository
     public interface IQuestionRepository
     {
         Task<List<QuestionDto>> GetQuestionsByCategory(int idCategory);
+
+        Task<bool> validateQuestions(string answer, int idQuestion);
     }
 }

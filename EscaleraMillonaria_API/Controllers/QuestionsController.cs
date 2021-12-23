@@ -43,7 +43,19 @@ namespace EscaleraMillonaria_API.Controllers
 
             return Ok(_response);
         }
-              
+
+        [HttpGet("{idQuestion}/{answer}")]
+        public async Task<ActionResult<Question>> validateQuestions(int idQuestion, string answer)
+        {
+            bool question = await _questionRepository.validateQuestions(answer, idQuestion);
+            if(question == false)
+            {
+                _response.Result = question;
+                return NotFound(question);
+            }
+            _response.Result = question;
+            return Ok(question);
+        }             
         
     }
 }
