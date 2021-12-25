@@ -13,9 +13,7 @@ namespace EscaleraMillonaria_API.Models.Dto
 
         public string PlayerAwards { get; set; }
 
-        public string PlayerCategory { get; set; }
-
-        public List<Question> QuestionsAnsweredByPlayer { get; set; }
+        public string PlayerCategory { get; set; }        
 
     }
 }

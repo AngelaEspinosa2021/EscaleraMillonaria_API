@@ -63,7 +63,7 @@ namespace EscaleraMillonaria_API.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPlayer(int id, PlayerDto playerDto)
+        public async Task<IActionResult> PutPlayer(PlayerDto playerDto)
         {
             try
             {
@@ -75,6 +75,27 @@ namespace EscaleraMillonaria_API.Controllers
             {
                 _response.IsSuccess = false;
                 _response.DisplayMessage = "Error al actualizar el registor";
+                _response.ErrorMessage = new List<string> { ex.ToString() };
+                return BadRequest(_response);
+            }
+        }
+
+        // POST: api/Customers
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
+        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [HttpPost]
+        public async Task<ActionResult<Player>> PostCustomer(PlayerDto playerDto)
+        {
+            try
+            {
+                PlayerDto model = await _playerRepository.CreateUpdatePlayer(playerDto);
+                _response.Result = model;
+                return CreatedAtAction("GetPlayerById", new { id = model.IdPlayer }, _response);
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.DisplayMessage = "Error al Grabar el Registro";
                 _response.ErrorMessage = new List<string> { ex.ToString() };
                 return BadRequest(_response);
             }
